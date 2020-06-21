@@ -1,13 +1,22 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
+var favicon = require('serve-favicon');
 var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
 var logger = require('morgan');
 
-// var indexRouter = require('./routes/index');
-// var usersRouter = require('./routes/users');
-
 var app = express();
+
+// connect to mongodb
+mongoose.connect('mongodb://localhost:27017/express_app', { useNewUrlParser: true, useUnifiedTopology: true }, function() {
+  console.log('Connection has been made');
+})
+.catch(err => {
+  console.error('App starting error:', err.stack);
+  process.exit(1);
+});
 
 // require file system module
 var fs = require('file-system');
